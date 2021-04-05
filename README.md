@@ -6,13 +6,14 @@
  <a href="#licenc-a">Licença</a> • 
  <a href="#autor">Autor</a>
 </p>
-<p align="center"> Teste de estágio para a empresa LabLuby. </p>
 
 
+<div id="#objetivo"> 
+  <p align="center"> Teste de estágio para a empresa LabLuby. </p>
+</div>
 
-# Technoclogies
- Node 
- Typescript
- Typeorm
-
-
+<div id="#tecnologias"> 
+  <p align="center"> Node </p>
+  <p align="center"> Typescript </p>
+  <p align="center"> Typeorm </p>
+</div>
