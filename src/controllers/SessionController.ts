@@ -1,32 +1,25 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { authConfig } from "../config/auth";
-import { UserRepository } from "../repositories/UserRepository";
 
-import { sign } from "jsonwebtoken";
-import { TokenRepository } from "../repositories/TokenRepository";
+import { container } from "tsyringe";
+import AuthenticateUsers from "../service/Users/AuthenticateUsers";
+import AppError from "../error/AppError";
 
 class SessionController{
     async create(request: Request, response: Response){
         const { email } = request.body;
+        const authUser = container.resolve(AuthenticateUsers);
 
-        const userRepository = getCustomRepository(UserRepository);
-
-        const user = await userRepository.findOne({ email })
-
-        if(!user) {
-            return response.status(404).json({ error: "User not found"})
-        }
-
-        const { secret, expiresIn } = authConfig.jwt;
-        const token = sign({}, secret, {
-            subject: user.id,
-            expiresIn,
+        const { user, token } = await authUser.execute({
+            email,
         });
 
-       return response.json({ token, user});
-
+        return response.json({ userWithoutPassword: user, token, });
     }
+    catch(err){
+        throw new AppError(err);
+        
+    }
+
 }
 
-export { SessionController };
+export default SessionController;

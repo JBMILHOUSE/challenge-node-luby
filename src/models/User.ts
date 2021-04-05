@@ -1,10 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("users")
 class User {
 
-  @PrimaryColumn()
-  readonly id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
   
   @Column()
   name: string;
@@ -24,11 +24,11 @@ class User {
   @Column()
   bio: string;
 
-  @CreateDateColumn()
-  create_at: Date;
+  @CreateDateColumn({ name: "create_at"})
+  created_at: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date;
 }
 
-export { User };
+export default User;

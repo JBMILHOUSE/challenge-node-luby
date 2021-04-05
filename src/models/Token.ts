@@ -1,10 +1,10 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
-import { User } from "./User";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import User from "./User";
 
 @Entity("tokens")
 class Token {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
   readonly id: string;
   
   @Column()
@@ -17,8 +17,8 @@ class Token {
   @CreateDateColumn()
   created_at: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date;
 }
 
-export { Token };
+export default Token;

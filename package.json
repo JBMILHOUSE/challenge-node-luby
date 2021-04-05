@@ -21,6 +21,7 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/uuid": "^8.3.0",
     "ts-node-dev": "^1.1.6",
+    "tsyringe": "^4.5.0",
     "typescript": "^4.2.3"
   }
 }
