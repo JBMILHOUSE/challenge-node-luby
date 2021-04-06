@@ -26,8 +26,8 @@ O projeto foi desenvolvido usando as seguintes tecnologias.
 
 ## :rocket: Teste Lógico
 
-O teste de Algoritimos foi realizado no CodeSandbox.
-link: https://codesandbox.io/s/teste-logico-luby-5sxnr?file=/src/exercises.js
+O teste de Algoritimos foi realizado no CodeSandbox
+segue o link: https://codesandbox.io/s/teste-logico-luby-5sxnr?file=/src/exercises.js
 
 
 <a id="como-usar"></a>
