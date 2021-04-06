@@ -1,29 +1,38 @@
 
  Index
 
-- [About](#about)
-- [Tecnology](#tecnology)
-- [How to use](#como-usar)
+- [Sobre](#about)
+- [Tecnologia](#tecnology)
+- [Teste Lógico](#teste-logico)
+- [Como usar](#como-usar)
 
 <a id="about"></a>
 
-## :bookmark: About
+## :bookmark: Sobre
 
 Teste de estágio para empresa Luby.
 
 <a id="tecnology"></a>
 
-## :rocket: Tecnology
+## :rocket: Tecnologia
 
-The project was developed using the following technologies
+O projeto foi desenvolvido usando as seguintes tecnologias.
 
 - [Node.js](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/pt/)
 - [TypeORM](https://typeorm.io/#/)
 
+<a id="teste-logico"></a>
+
+## :rocket: Teste Lógico
+
+O teste de Algoritimos foi realizado no CodeSandbox.
+link: https://codesandbox.io/s/teste-logico-luby-5sxnr?file=/src/exercises.js
+
+
 <a id="como-usar"></a>
 
-## :fire: How to use
+## :fire: Como usar
 
 ```sh
 # Clone este repositório
