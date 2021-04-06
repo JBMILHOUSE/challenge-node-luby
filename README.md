@@ -27,7 +27,7 @@ The project was developed using the following technologies
 
 ```sh
 # Clone este repositório
-$ git clonehttps://github.com/JBMILHOUSE/challenge-node-luby.git
+$ git clone https://github.com/JBMILHOUSE/challenge-node-luby.git
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd challenge-node-luby
