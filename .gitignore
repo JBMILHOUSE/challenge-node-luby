@@ -2,5 +2,8 @@
 src/service
 src/middlewares
 src/container
+src/config
+src/database/database.sqlite
 
 .env
+
