@@ -19,17 +19,17 @@ const repositoriesStarsControllers = new RepositorieStarsController();
 
 router.post("/users", userControllers.create);
 router.get("/users/:id", userControllers.index)
-router.put("/users/:id", userControllers.update);
-//router.delete("/users/:id", userControllers.destroy);
+//router.put("/users/:id", userControllers.update);
+router.delete("/users/:id", userControllers.destroy);
 
 router.get("/follower/:id", followerControllers.index);
 router.post("/follower", followerControllers.create);
-router.put("/follower/:id", followerControllers.update);
+//router.put("/follower/:id", followerControllers.update);
 //router.delete("/follower/:id", followerControllers.destroy);
 
 router.get("/following/:id", followingControllers.index);
 router.post("/following", followingControllers.create);
-//router.delete("/following/:id", followingControllers.destroy);
+router.delete("/following/:id", followingControllers.destroy);
 //router.put("/following/:id", followingControllers.update);
 
 router.get("/repositories/:id", repositoriesControllers.index);

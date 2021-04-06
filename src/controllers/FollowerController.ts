@@ -6,9 +6,6 @@ import AppError from "../error/AppError";
 import FollowerRepository from "../repositories/FollowerRepository";
 import UsersRepository from "../repositories/UsersRepository";
 
-import CreateFollower from "../service/Followers/CreateFollower";
-import ShowAllFollower from "../service/Followers/ShowAllFollower";
-
 class FollowerController {
     async create(request: Request, response: Response){
         try {
@@ -16,7 +13,6 @@ class FollowerController {
 
             const userRepo = getCustomRepository(UsersRepository);
             const followerRepo = getCustomRepository(FollowerRepository);
-            //const createFollower = container.resolve(CreateFollower);
     
             const user = await userRepo.findById(user_id);
             const follower = await userRepo.findById(follower_id);
@@ -45,8 +41,8 @@ class FollowerController {
             
             await followerRepo.save(createFollower);
 
-            console.log(createFollower);
-           // return response.status(201).json(createFollower);
+            //console.log(createFollower);
+           return response.status(201).json(createFollower);
         } catch (error) {
            throw new AppError(error); 
         }
@@ -75,47 +71,6 @@ class FollowerController {
             throw new AppError(error);
         }
     }
-
-    async update(request: Request, response: Response){
-      try {
-        const {user_id} = request.params;
-        const follower_id = request.body;
-
-        const userRepo = getCustomRepository(UsersRepository);
-        const followerRepo = getCustomRepository(FollowerRepository);
-
-        const isUser = await userRepo.findOne(user_id);
-
-        if (!isUser) {
-            throw new AppError('user not found');
-        }
-      
-        const isUserFollower = await userRepo.findOne(follower_id);
-      
-        if (!isUserFollower) {
-            throw new AppError('user not found');
-        }
-
-        const isfollower = await followerRepo.findOne(user_id);
-
-        if (!isfollower) {
-           throw new AppError('follower not exist');
-        }
-        
-        const follower = followerRepo.create({
-            follower_id,
-            user_id,
-        });
-
-        await followerRepo.save(follower);
-
-        console.log(follower);
-
-      } catch (error) {
-          
-      }
-    }
-
 }
 
 export default FollowerController;

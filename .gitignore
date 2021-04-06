@@ -2,3 +2,5 @@
 src/service
 src/middlewares
 src/container
+
+.env

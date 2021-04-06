@@ -1,13 +1,9 @@
 import { Request, Response } from "express";
-import { container } from "tsyringe";
 import { getCustomRepository } from "typeorm";
 import AppError from "../error/AppError";
 
 import FollowingRepository from "../repositories/FollowingRepository";
 import UsersRepository from "../repositories/UsersRepository";
-
-import CreateFollowing from "../service/Following/CreateFollowing";
-import ShowAllFollowing from "../service/Following/ShowAllFollowing";
 
 class FollowingController {
     async create(request: Request, response: Response){
@@ -25,8 +21,7 @@ class FollowingController {
             }
       
             const checkUserFollowerMatch = await followingRepo.findFollowing({ user_id, following_id,});
-        
-  
+      
             if (checkUserFollowerMatch) {
               return response.json('relationship already exists');
             }
@@ -39,8 +34,6 @@ class FollowingController {
             const createFollowing = followingRepo.create({ following_id: following_id, user_id: user_id, });
         
             await followingRepo.save(createFollowing);
-
-            //console.log(createFollowing);
            
            return response.status(201).json(createFollowing);
           } catch (err) {
@@ -49,12 +42,12 @@ class FollowingController {
         }
     }
    
-    async index(request: Request, response: Response): Promise<Response> {
+    async index(request: Request, response: Response){
         try {
           const user_id = request.params;
           const followingRepo = getCustomRepository(FollowingRepository);
     
-          const following = await followingRepo.find(user_id);
+          const following = await followingRepo.findOne(user_id);
 
           if (!following) {
             throw new AppError('no followings found');
@@ -66,13 +59,32 @@ class FollowingController {
             throw new AppError('not count followings');
           }
     
-          //console.log(following, count);
           return response.status(201).json({ following, count });
 
         } catch (err) {
           console.log(err);
         }
+    }
+
+    async destroy(request: Request, response: Response){
+      try {
+        const { following_id } = request.params;
+        const followingRepo = getCustomRepository(FollowingRepository);
+
+        const followingDelete = await followingRepo.findOne({where: {following_id}});
+
+        if (!followingDelete) {
+          throw new AppError('no followers found');
+        }
+    
+        await followingRepo.delete(followingDelete.following_id);
+
+        return response.json({ message: "deletado"});
+      } catch (error) {
+        return response.json(error);
       }
+    }
+
 }
 
 export default FollowingController;

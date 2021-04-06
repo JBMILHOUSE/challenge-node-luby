@@ -1,13 +1,9 @@
 import { Request, Response } from "express"
 import { container } from "tsyringe";
-import { getCustomRepository, RepositoryNotTreeError } from "typeorm";
-import AppError from "../error/AppError";
-import User from "../models/User";
+import { getCustomRepository, } from "typeorm";
+
 import UsersRepository from "../repositories/UsersRepository";
-import CreateUserService from "../service/Users/CreateUserService";
 import DeleteUser from "../service/Users/DeleteUser";
-import ShowUser  from "../service/Users/ShowUser";
-import UpdateProfile  from "../service/Users/UpdateProfile";
 
 class UserController {
    async create(request: Request, response: Response){
@@ -25,22 +21,17 @@ class UserController {
             const checkUsername = await userRepo.findByUsername(username);
 
             if(checkUsername){
-                throw new AppError("username already existing");
+                return response.json("username already existing");
             }
 
             const createUser = userRepo.create({ name, email, location, avatar, username, bio });
 
             await userRepo.save(createUser);
 
-           /* const createUser = container.resolve(CreateUserService);
-
-            const user = await createUser.execute({ name, email, location, avatar, username, bio})*/
-
             return response.status(201).json(createUser);
 
         } catch (error) {
-            console.log(error);
-            //return response.status(404).json({ error: "erro ao inserir"});
+            return response.status(404).json(error);
         }
     }
 
@@ -55,61 +46,52 @@ class UserController {
                 response.json("usuario não existe");
             }
 
-            //console.log(user);
             return response.status(201).json(user);
         } catch (error) {
-            console.log(error)
-            //return response.json({ error: "erro"})
+            return response.json(error)
         }
     }
 
+    // erro ao atualizar
     async update(request: Request, response: Response){
         try {
 
-            const user_id = request.params;
+            const user_id = request.params.id;
             const { name, email, location, avatar, username, bio } = request.body;
 
             const userRepo = getCustomRepository(UsersRepository);
-            const user = await userRepo.findOne({ where: { user_id}});
+            const user = await userRepo.findById(user_id);
 
-            console.log(user);
-            /*if(!user){
+            //console.log(user);
+            if(!user){
                 return response.json({ error: "user not found!"});
             }
             
-            const checkUserEmail = userRepo.findOne({where: { email}});
-
-
-            const createUser = userRepo.create({ name, email, location, avatar, username, bio });
-            await userRepo.save(createUser);
-            /*const user = await checkUserId.execute({
-                user_id,
-                name,
-                email,
-                location,
-                username,
-                bio,
-            })
-
-            console.log(createUser)*/
+            console.log(await userRepo.save({ user_id: user.id, name: user.name, email: user.email,
+                 location: user.location, avatar: user.avatar, username: user.username, bio: user.bio}));
+            
            // return response.status(201).json(createUser);
         }
         catch(error) {
-            throw new AppError(error);
+            console.log(error);
         }
     }
 
     async destroy(request: Request, response: Response): Promise<Response>{
         try{
-            const email = request.body;
+            const user_id= request.params.id;
+            const userRepo = getCustomRepository(UsersRepository);
+            const user = await userRepo.findById(user_id);
 
-            const deleteUser = container.resolve(DeleteUser);
-            const user = await deleteUser.execute(email);
-
-            return response.json(user);
+            if (!user) {
+               return response.json("user don't existing");
+            }
+            
+            await userRepo.delete(user_id);
+            return response.json({ message: "user successfully deleted"});
         }
         catch(err){
-            throw new AppError(err);
+            return response.json(err);
         }
     }
 }

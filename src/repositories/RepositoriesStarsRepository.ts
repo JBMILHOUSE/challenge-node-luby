@@ -33,37 +33,10 @@ class RepositoriesStarsRepository extends Repository<RepositoriesStars> {
         await this.delete({ id: repositories_stars_id });
     }
 
-   /* private ormRepository:  Repository<RepositoriesStars>;
- 
-    constructor() {
-       this.ormRepository = getRepository(RepositoriesStars);
-    }
-     
-
-
     async findByRepoId(repositories_stars_id: string): Promise<RepositoriesStars> {
-        const star = this.ormRepository.findOne(repositories_stars_id);
+       return await this.findOne(repositories_stars_id);
 
-        return star;
     }
-
-  
-
-  
-
-    async create(data: CreateRepositoriesStarsDTO): Promise<RepositoriesStars> {
-        const repoStars = this.ormRepository.create(data);
-
-        await this.ormRepository.save(repoStars);
-    
-        return repoStars;
-    }
-
-    async save(repositoryStar: RepositoriesStars): Promise<RepositoriesStars> {
-        return this.ormRepository.save(repositoryStar);
-    }
-
-   */
 }
 
 export default RepositoriesStarsRepository;

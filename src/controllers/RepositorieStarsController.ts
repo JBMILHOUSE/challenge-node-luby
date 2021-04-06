@@ -60,8 +60,7 @@ class RepositorieStarsController {
           if (repoStar) {
             return response.json('repository not found');
           }
-      
-          //console.log(repoStar);
+   
           const stars = await repositoriesStarsRepository.findStar(
             repository_id,
           );
@@ -74,23 +73,23 @@ class RepositorieStarsController {
         } catch (err) {
           return response.status(404).json(err);
         }
-      }
+    }
      
       
-      public async destroy(request: Request, response: Response): Promise<Response>{
+    public async destroy(request: Request, response: Response){
         try {
-          const repository_id = request.params;
+          const repository_id = request.params.id;
           
           const repositoriesStarsRepository = getCustomRepository(RepositoriesStarsRepository);
+          const repoStarsDelete = repositoriesStarsRepository.findById(repository_id);
 
-          await repositoriesStarsRepository.delete(repository_id);
+         await repositoriesStarsRepository.delete(repository_id);
 
-          return response.status(201).json("deletado");
+          return response.status(201).json({ message: "success for delete star"});
         } catch (error) {
-          console.log(error);
+           return response.status(404).json(error)
         }
-      }
-
+    }
 
 }
 

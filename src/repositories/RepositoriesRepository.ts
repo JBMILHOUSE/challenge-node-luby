@@ -31,48 +31,6 @@ class RepositoriesRepository extends Repository<Repositories> {
         },
       });
   }
-
-
-  /*async create(data: CreateRepositoriesDTO): Promise<Repositories> {
-  const repository = this.create(data);
-
-  await this.save(repository);
-
-  return repository;
-  }
-  *private ormRepository:  Repository<Repositories>;
- 
-     constructor() {
-       this.ormRepository = getRepository(Repositories);
-     }
-
-  
-
-    async findRepositories(slug: string): Promise<Repositories[] | undefined> {
-        const repositories = await this.ormRepository.find({
-            where: {
-              slug,
-            },
-          });
-      
-          return repositories;
-    }
-
-
-
-   
-
-   
-
-    async delete(repository_id: string): Promise<void> {
-        await this.ormRepository.delete({ id: repository_id });
-    }
-
-    async save(repository: Repositories): Promise<Repositories> {
-        return this.ormRepository.save(repository);
-    }
-
-    */
 }
 
 export default RepositoriesRepository;
